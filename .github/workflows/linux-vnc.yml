@@ -31,7 +31,7 @@ jobs:
         tags: tag:vnc
         hostname: vnc-actions
     - name: Get Tailscale IP...
-      run: tailscale ip --body=json | jq -r '.AdvertisedRoutes[0]' > /tmp/tailscale_ip.txt || echo "100.100.100.100" > /tmp/tailscale_ip.txt
+      run: tailscale ip -4 > /tmp/tailscale_ip.txt 2>/dev/null || echo "100.100.100.100" > /tmp/tailscale_ip.txt
     - name: Creating tunnel with ngrok...
       run: ngrok tcp 7582
     - name: Display Connection Info...
@@ -51,5 +51,5 @@ jobs:
         echo ""
         echo "=== Full Connection Details ==="
         echo "VNC Server running on port 5901 locally"
-        echo "Tailscale IP: $(tailscale ip -4 2>/dev/null || echo 'checking...')"
+        echo "Tailscale IP: $(cat /tmp/tailscale_ip.txt)"
         echo "Ngrok tunnel: running on port 7582"
