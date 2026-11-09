@@ -65,3 +65,5 @@ The workflow will display:
 - Connect directly if you have network access
 
 ### Please note that the duration of the runners in GitHub Actions is for 6 hours, so, the VNC server lasts 6 hours
+
+**Tailskey Key:** Ensure your `TAILSCALE_AUTH_KEY` secret starts with `tskey-` (Auth Key format) not `tskey-api-` (API Key format). Use the key from [Tailscale Admin → Keys](https://login.tailscale.com/admin/keys).
