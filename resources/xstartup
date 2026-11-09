@@ -1,2 +1,24 @@
 #!/bin/bash
-dbus-launch /usr/bin/startxfce4 &
+# XFCE4 desktop session for TurboVNC
+# This script is executed when the VNC server starts
+
+# Start dbus session (required for XFCE)
+dbus-launch --sh-syntax /etc/xdg/xfce4/xinitrc &
+
+# Wait for dbus to start
+sleep 2
+
+# Start XFCE window manager
+xfwm4 &
+
+# Start panel
+xfce4-panel &
+
+# Start file manager
+Thunar &
+
+# Wait for applications to start
+sleep 3
+
+# Set background (optional)
+xfce4-session - &

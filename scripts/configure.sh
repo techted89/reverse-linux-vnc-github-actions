@@ -32,7 +32,7 @@ curl -fsSL https://tailscale.com/install.sh | sh
 # Fifth, generate and copy passwd file and xstartup script
 export PATH=$PATH:/opt/TurboVNC/bin
 mkdir $HOME/.vnc
-cp ./resources/xstartup $HOME/.vnc/xstartup.turbovnc
+cp ./resources/xstartup $HOME/.vnc/xstartup
 echo $VNC_PASSWORD | vncpasswd -f > $HOME/.vnc/passwd
 chmod 0600 $HOME/.vnc/passwd
 
