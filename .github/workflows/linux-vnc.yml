@@ -16,6 +16,7 @@ jobs:
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
         VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
+        # TAILSCALE_AUTH_KEY secret should be from Tailscale Admin → Keys (starts with tskey-auth-)
         TAILSCALE_AUTH_KEY: ${{ secrets.TAILSCALE_AUTH_KEY }}
       run: ./scripts/configure.sh
     - name: Starting VNC Server...
@@ -23,8 +24,12 @@ jobs:
         VNC_SCREENSIZE: ${{ secrets.VNC_SCREENSIZE }}
         VNC_DEPTHVALUE: ${{ secrets.VNC_DEPTHVALUE }}
       run: export PATH=$PATH:/opt/TurboVNC/bin && cd $HOME && vncserver :1 -geometry $VNC_SCREENSIZE -depth $VNC_DEPTHVALUE -rfbport 7582
-    - name: Starting Tailscale...
-      run: sudo tailscale up --auth-key $TAILSCALE_AUTH_KEY --advertise-tags=tag:vnc --hostname=vnc-actions
+    - name: Starting Tailscale (using GitHub Action)...
+      uses: tailscale/github-action@v4
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
+        tags: tag:vnc
+        hostname: vnc-actions
     - name: Get Tailscale IP...
       run: tailscale ip --body=json | jq -r '.AdvertisedRoutes[0]' > /tmp/tailscale_ip.txt || echo "100.100.100.100" > /tmp/tailscale_ip.txt
     - name: Creating tunnel with ngrok...
