@@ -1,7 +1,7 @@
 #!/bin/bash
 # Reverse Linux VNC for GitHub Actions by PANCHO7532
 # This script is executed when GitHub actions is initialized.
-# Prepares dependencies, ngrok, and vnc stuff
+# Prepares dependencies, ngrok, tailscale, and vnc stuff
 
 # First, install required packages...
 sudo apt update
@@ -26,16 +26,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 chmod +x ./scripts/Ngrok-Installer.sh
 ./scripts/Ngrok-Installer.sh
 
+# Fourth, install Tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
 
-
-
-# Fourth, generate and copy passwd file and xstartup script
+# Fifth, generate and copy passwd file and xstartup script
 export PATH=$PATH:/opt/TurboVNC/bin
 mkdir $HOME/.vnc
 cp ./resources/xstartup $HOME/.vnc/xstartup.turbovnc
 echo $VNC_PASSWORD | vncpasswd -f > $HOME/.vnc/passwd
 chmod 0600 $HOME/.vnc/passwd
 
-# Fifth and last, set up auth token from argument
+# Sixth, start Tailscale with auth key from secret
+tailscale up --auth-key $TAILSCALE_AUTH_KEY --advertise-tags=tag:vnc --hostname=vnc-actions
+
+# Seventh, set up auth token from argument
 ngrok authtoken $NGROK_AUTH_TOKEN
 exit
