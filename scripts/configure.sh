@@ -14,8 +14,8 @@ wget 'https://github.com/TurboVNC/turbovnc/releases/download/3.3.1/turbovnc_3.3.
 sudo dpkg -i turbovnc_3.3.1_amd64.deb
 
 # Third, download ngrok
-curl -fsSL https://bin.ngrok.com/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | tar -xz
-sudo tar -xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+wget https://bin.ngrok.com/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz 
+sudo tar -xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 chmod +x ngrok
 
 # Fourth, generate and copy passwd file and xstartup script
