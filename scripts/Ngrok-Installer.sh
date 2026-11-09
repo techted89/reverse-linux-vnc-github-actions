@@ -42,5 +42,5 @@ sudo tar xvzf ~/ngrok.tgz -C /usr/bin
 
 rm -rf ~/ngrok.tgz
 
-ngrok
+
     
