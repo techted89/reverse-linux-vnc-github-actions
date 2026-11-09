@@ -36,9 +36,8 @@ cp ./resources/xstartup $HOME/.vnc/xstartup.turbovnc
 echo $VNC_PASSWORD | vncpasswd -f > $HOME/.vnc/passwd
 chmod 0600 $HOME/.vnc/passwd
 
-# Sixth, start Tailscale with auth key from secret
-tailscale up --auth-key $TAILSCALE_AUTH_KEY --advertise-tags=tag:vnc --hostname=vnc-actions
-
+# Sixth, Tailscale is started by the workflow step
+# (see .github/workflows/linux-vnc.yml "Starting Tailscale..." step)
 # Seventh, set up auth token from argument
 ngrok authtoken $NGROK_AUTH_TOKEN
 exit
