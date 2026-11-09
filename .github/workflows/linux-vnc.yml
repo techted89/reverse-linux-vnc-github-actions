@@ -1,6 +1,6 @@
 # Reverse Linux VNC for GitHub Actions
 # This YAML establishes the "build" workflow where we will execute all required scripts
-# During the process, it should get stuck at the last step where it creates a new tunnel on ngrok.
+# During the process, it should get stuck at the last step where it creaes a new tunnel on ngrok.
 
 name: Ubuntu
 on: [push]
