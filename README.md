@@ -31,6 +31,9 @@ Example Value: tskey-abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345
 A Tailscale auth key for connecting the GitHub Actions runner to your tailnet
 ```
 
+**Note:** The Tailscale step uses `sudo` to modify system preferences. This is required in the GitHub Actions runner environment.
+```
+
 All of those secrets are required for the script to work, if you forget to add one, then it will throw an error
 
 4) Trigger an build, by editing this README or uploading anything to your repository, don't modify the contents of the resources or scripts folders
